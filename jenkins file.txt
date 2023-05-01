@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'develop', url: 'https://github.com/your-repo.git'
+      }
+    }
+    
+    stage('Pull') {
+      steps {
+        sh 'mkdir /path/to/folder'
+        sh 'git pull origin develop'
+        sh 'cp -R /path/to/source /path/to/folder'
+      }
+    }
+  }
+  
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
